@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI
-from pydantic import BaseModel
 
 from app.gemini import generate_response
+from app.models import ChatRequest
 
 
 app = FastAPI(
@@ -13,9 +13,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-
-class ChatRequest(BaseModel):
-    message: str
+MAX_MESSAGES = 10
 
 
 @app.get("/health")
@@ -25,7 +23,15 @@ def health():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    response = generate_response(request.message)
+    if len(request.messages) > MAX_MESSAGES:
+        return {
+            "error": "Demo conversation limit reached"
+        }
+
+    response = generate_response(
+        messages=request.messages,
+        context=request.context,
+    )
 
     return {
         "response": response
