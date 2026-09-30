@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .env
 .env.*
+credentials.json
 .git
 .gitignore
 Dockerfile

@@ -4,8 +4,8 @@ load_dotenv()
 
 from fastapi import FastAPI
 
-from app.gemini import generate_response
-from app.models import ChatRequest
+from app.routes.chat import router as chat_router
+from app.routes.contact import router as contact_router
 
 
 app = FastAPI(
@@ -13,26 +13,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
-MAX_MESSAGES = 10
-
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
 
-@app.post("/chat")
-def chat(request: ChatRequest):
-    if len(request.messages) > MAX_MESSAGES:
-        return {
-            "error": "Demo conversation limit reached"
-        }
-
-    response = generate_response(
-        messages=request.messages,
-        context=request.context,
-    )
-
-    return {
-        "response": response
-    }
+app.include_router(chat_router)
+app.include_router(contact_router)

@@ -16,3 +16,10 @@ class ChatbotContext(BaseModel):
 class ChatRequest(BaseModel):
     messages: list[ChatMessage]
     context: ChatbotContext
+
+
+class ContactRequest(BaseModel):
+    name: str
+    email: str
+    phone: str | None = None
+    message: str

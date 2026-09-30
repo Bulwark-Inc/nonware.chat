@@ -1,4 +1,9 @@
+uvicorn 
+python-dotenv
 fastapi
 google-genai
-python-dotenv
-uvicorn 
+requests
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
