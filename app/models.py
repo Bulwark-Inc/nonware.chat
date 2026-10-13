@@ -22,4 +22,5 @@ class ContactRequest(BaseModel):
     name: str
     email: str
     phone: str | None = None
+    service: str | None = None
     message: str

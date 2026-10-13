@@ -13,5 +13,6 @@ def send_contact(request: ContactRequest):
         name=request.name,
         email=request.email,
         phone=request.phone,
+        service=request.service,
         message=request.message,
     )

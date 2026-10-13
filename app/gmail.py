@@ -21,6 +21,7 @@ def send_contact_email(
     email: str,
     phone: str | None,
     message: str,
+    service: str | None = None,
 ):
     credentials = Credentials(
         token=None,
@@ -42,13 +43,14 @@ def send_contact_email(
     email_message.set_content(
         f"""New contact form submission
 
-Name: {name}
-Email: {email}
-Phone: {phone or "Not provided"}
+        Name: {name}
+        Email: {email}
+        Phone: {phone or "Not provided"}
+        Service: {service or "Not specified"}
 
-Message:
-{message}
-"""
+        Message:
+        {message}
+        """
     )
 
     encoded_message = (
